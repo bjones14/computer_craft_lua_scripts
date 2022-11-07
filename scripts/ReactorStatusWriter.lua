@@ -9,15 +9,35 @@ function OpenWireless()
     rednet.open("top")
 end
 
+function CloseWireless()
+    rednet.close("top")
+end
+
+function getNumUraniumCells()
+    num = 0
+    for k, v in pairs(input_chest.list()) do
+        if v ~= nil then
+            num = num + 1
+        end
+    end                
+    return num
+end
+
 function MainLoop()
     while true do
-        sleep(5)
+        numUraniumCells = getNumUraniumCells()
+        numInventorySlots = input_chest.size()
+        uraniumPercentFull = (numUraniumCells / numInventorySlots) * 100
+                        
+        status = string.format("nr1_u92_lvl_%% : %d", uraniumPercentFull) 
+
+        print(status)
+        
         OpenWireless()
-
-        input_list = input_chest.list()
-        numUraniumCells = #input_list
-
-        rednet.send(viewerID, "There are " .. toString(numUraniumCells) " uranium cells in the reactor chest.")
+        rednet.send(viewerID, status)
+        CloseWireless()
+    
+        sleep(10)
     end
 end
 

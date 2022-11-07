@@ -11,7 +11,7 @@ function WriteLine(sender, message)
     local mX, mY = monitor.getCursorPos()
     local next_mY = mY + 1
 
-    output_string = os.date("%m/%d/%y %H:%m:%S") .. " [" .. sender .. "] " .. message
+    local output_string = os.date("%m/%d/%y %H:%m:%S") .. " [" .. sender .. "] " .. message
     print(output_string)
 
     if next_mY >= mon_height then
@@ -41,7 +41,7 @@ function MOTD()
     -- displays a message of the day banner on the top of the console monitor
     
     -- store previous position to be restored after MOTD is updated
-    pre_x, pre_y = monitor.getCursorPos()
+    local pre_x, pre_y = monitor.getCursorPos()
 
     monitor.setCursorPos(1,1)
     monitor.write("     clan {sp} Tekkit 2 Server - Status Viewer    ")
